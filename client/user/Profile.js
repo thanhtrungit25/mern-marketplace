@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import _ from 'lodash';
 import { makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import List from '@material-ui/core/List'
@@ -55,10 +56,18 @@ export default function Profile({ match }) {
     }
 
   }, [match.params.userId])
-  
+
     if (redirectToSignin) {
       return <Redirect to='/signin'/>
     }
+
+    if (_.isEmpty(user)) {
+      return '<p>Loading</p>'
+    }
+
+    console.log('🐶 auth', auth.isAuthenticated())
+    console.log('🐺 auth', user)
+
     return (
       <Paper className={classes.root} elevation={4}>
         <Typography variant="h6" className={classes.title}>
@@ -79,7 +88,7 @@ export default function Profile({ match }) {
                     <Edit/>
                   </IconButton>
                 </Link>
-                <DeleteUser userId={user._id}/>
+                {user && <DeleteUser userId={user._id}/>}
               </ListItemSecondaryAction>)
             }
           </ListItem>

@@ -10,6 +10,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import auth from './../auth/auth-helper'
 import {read, update} from './api-user.js'
 import {Redirect} from 'react-router-dom'
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Switch from '@material-ui/core/Switch';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -34,6 +36,10 @@ const useStyles = makeStyles(theme => ({
   submit: {
     margin: 'auto',
     marginBottom: theme.spacing(2)
+  },
+  subheading: {
+    marginTop: theme.spacing(2),
+    color: theme.palette.openTitle
   }
 }))
 
@@ -43,6 +49,7 @@ export default function EditProfile({ match }) {
     name: '',
     password: '',
     email: '',
+    seller: false,
     open: false,
     error: '',
     redirectToProfile: false
@@ -72,7 +79,8 @@ export default function EditProfile({ match }) {
     const user = {
       name: values.name || undefined,
       email: values.email || undefined,
-      password: values.password || undefined
+      password: values.password || undefined,
+      seller: values.seller || undefined
     }
     update({
       userId: match.params.userId
@@ -82,12 +90,18 @@ export default function EditProfile({ match }) {
       if (data && data.error) {
         setValues({...values, error: data.error})
       } else {
-        setValues({...values, userId: data._id, redirectToProfile: true})
+        auth.updateUser(user, () => {
+          setValues({...values, userId: data._id, redirectToProfile: true})
+        })
       }
     })
   }
   const handleChange = name => event => {
     setValues({...values, [name]: event.target.value})
+  }
+
+  const handleCheck = (event, checked) => {
+    setValues({...values, seller: checked})
   }
 
     if (values.redirectToProfile) {
@@ -96,21 +110,74 @@ export default function EditProfile({ match }) {
     return (
       <Card className={classes.card}>
         <CardContent>
-          <Typography variant="h6" className={classes.title}>
+          <Typography variant='h6' className={classes.title}>
             Edit Profile
           </Typography>
-          <TextField id="name" label="Name" className={classes.textField} value={values.name} onChange={handleChange('name')} margin="normal"/><br/>
-          <TextField id="email" type="email" label="Email" className={classes.textField} value={values.email} onChange={handleChange('email')} margin="normal"/><br/>
-          <TextField id="password" type="password" label="Password" className={classes.textField} value={values.password} onChange={handleChange('password')} margin="normal"/>
-          <br/> {
-            values.error && (<Typography component="p" color="error">
-              <Icon color="error" className={classes.error}>error</Icon>
+          <TextField
+            id='name'
+            label='Name'
+            className={classes.textField}
+            value={values.name}
+            onChange={handleChange('name')}
+            margin='normal'
+          />
+          <br />
+          <TextField
+            id='email'
+            type='email'
+            label='Email'
+            className={classes.textField}
+            value={values.email}
+            onChange={handleChange('email')}
+            margin='normal'
+          />
+          <br />
+          <TextField
+            id='password'
+            type='password'
+            label='Password'
+            className={classes.textField}
+            value={values.password}
+            onChange={handleChange('password')}
+            margin='normal'
+          />
+          <br />{' '}
+          {values.error && (
+            <Typography component='p' color='error'>
+              <Icon color='error' className={classes.error}>
+                error
+              </Icon>
               {values.error}
-            </Typography>)
-          }
+            </Typography>
+          )}
+          <Typography variant='subtitle1' className={classes.subheading}>
+            Seller Account
+          </Typography>
+          <FormControlLabel
+            control={
+              <Switch
+                classes={{
+                  checked: classes.checked,
+                  bar: classes.bar
+                }}
+                checked={values.seller}
+                onChange={handleCheck}
+                color='secondary'
+                name='seller'
+              />
+            }
+            label={values.seller ? 'Active' : 'Inactive'}
+          />
         </CardContent>
         <CardActions>
-          <Button color="primary" variant="contained" onClick={clickSubmit} className={classes.submit}>Submit</Button>
+          <Button
+            color='primary'
+            variant='contained'
+            onClick={clickSubmit}
+            className={classes.submit}
+          >
+            Submit
+          </Button>
         </CardActions>
       </Card>
     )
