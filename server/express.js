@@ -8,6 +8,7 @@ import helmet from 'helmet'
 import Template from './../template'
 import userRoutes from './routes/user.routes'
 import authRoutes from './routes/auth.routes'
+import shopRoutes from './routes/shop.routes'
 
 // modules for server side rendering
 import React from 'react'
@@ -43,6 +44,7 @@ app.use('/dist', express.static(path.join(CURRENT_WORKING_DIR, 'dist')))
 // mount routes
 app.use('/', userRoutes)
 app.use('/', authRoutes)
+app.use('/', shopRoutes)
 
 app.get('*', (req, res) => {
   const sheets = new ServerStyleSheets()
@@ -74,6 +76,10 @@ app.use((err, req, res, next) => {
     res.status(400).json({"error" : err.name + ": " + err.message})
     console.log(err)
   }
+})
+
+process.on('unhandledRejection', error => {
+  console.log('unhandledRejection', error.message);
 })
 
 export default app
