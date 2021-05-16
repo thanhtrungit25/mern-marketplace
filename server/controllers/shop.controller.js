@@ -2,6 +2,7 @@ import fs from 'fs'
 import formidable from 'formidable'
 import Shop from '../models/shop.model'
 import errorHandler from '../helpers/dbErrorHandler'
+import defaultImage from '../../client/assets/images/default.png'
 
 const create = (req, res, next) => {
   let form = new formidable.IncomingForm()
@@ -31,6 +32,38 @@ const create = (req, res, next) => {
   })
 }
 
+const shopByID = async (req, res, next, id) => {
+  try {
+    let shop = await Shop.findById(id)
+    if (!shop) {
+      return res.status(400).json({
+        error: 'Shop not found'
+      })
+    }
+    req.shop = shop
+    next()
+  } catch (error) {
+    return res.status(400).json({
+      error: 'Could not retrieve a shop'
+    })
+  }
+}
+
+const photo = async (req, res, next) => {
+  if (req.shop.image.data) {
+    res.set('Content-Type', req.shop.image.contentType)
+    res.send(req.shop.image.data)
+  }
+  next()
+}
+
+const defaultPhoto = (req, res, next) => {
+  res.sendFile(process.cwd()+defaultImage)
+}
+
 export default {
   create,
+  shopByID,
+  photo,
+  defaultPhoto,
 }
