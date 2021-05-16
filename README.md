@@ -21,11 +21,18 @@ A skeleton application with basic user CRUD and auth features - developed using 
 ----
 
 #### Features
-- [ ] Users with seller accounts #feature @trungdg 2021-05-15
+- [x] Users with seller accounts #feature @trungdg 2021-05-15
   - [x] Update the user model
   - [x] Edit Profile view
   - [x] Add a MY SHOPS link to the menu that will only by visible to sellers
 - [ ] Shop management
+  - [ ] Adding shops to the marketplace
+    - [x] Defining a shop model
+    - [ ] Creating a new shop
+    - [ ] Listing shops
+    - [ ] Displaying a shop
+    - [ ] Editing a shop
+    - [ ] Deleting a shop
 - [ ] Product management
 - [ ] Product search by name and category
 
