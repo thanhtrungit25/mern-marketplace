@@ -25,7 +25,24 @@ const list = async (signal) => {
   }
 }
 
+const listByOwner = async (params, credentials, signal) => {
+  try {
+    let response = await fetch('/api/shops/by/' + params.userId, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      signal: signal
+    })
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   create,
   list,
+  listByOwner,
 }

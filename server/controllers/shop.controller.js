@@ -35,6 +35,8 @@ const create = (req, res, next) => {
 const shopByID = async (req, res, next, id) => {
   try {
     let shop = await Shop.findById(id)
+      .populate('owner', '_id name')
+      .exec()
     if (!shop) {
       return res.status(400).json({
         error: 'Shop not found'
@@ -66,11 +68,28 @@ const list = async (req, res, next) => {
     let shops = await Shop.find()
     res.json(shops)
   } catch (err) {
-    console.log('🦊', err)
     return res.status(400).json({
-      error: 'Could not retrieve a shop'
+      error: errorHandler.getErrorMessage(err)
     })
   }
+}
+
+const listByOwner = async (req, res, next) => {
+  try {
+    let shops = await Shop.find({ owner: req.profile._id })
+      .populate('owner', '_id name')
+    res.json(shops)
+  } catch (err) {
+    console.log('🦊', err)
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const read = (req, res) => {
+  req.shop.image = undefined
+  return res.json(req.shop)
 }
 
 export default {
@@ -79,4 +98,6 @@ export default {
   photo,
   defaultPhoto,
   list,
+  listByOwner,
+  read,
 }
