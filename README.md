@@ -37,7 +37,7 @@ A skeleton application with basic user CRUD and auth features - developed using 
       - [x] fetch method on frontend to request to API
       - [x] React component to display the list of shops
     - [x] Listing shops by owner
-    - [ ] Displaying a shop
+    - [x] Displaying a shop
     - [ ] Editing a shop
     - [ ] Deleting a shop
 - [ ] Product management
