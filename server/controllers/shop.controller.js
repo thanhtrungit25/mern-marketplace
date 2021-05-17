@@ -49,10 +49,10 @@ const shopByID = async (req, res, next, id) => {
   }
 }
 
-const photo = async (req, res, next) => {
+const photo = (req, res, next) => {
   if (req.shop.image.data) {
     res.set('Content-Type', req.shop.image.contentType)
-    res.send(req.shop.image.data)
+    return res.send(req.shop.image.data)
   }
   next()
 }
