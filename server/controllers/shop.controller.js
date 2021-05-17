@@ -61,9 +61,22 @@ const defaultPhoto = (req, res, next) => {
   res.sendFile(process.cwd()+defaultImage)
 }
 
+const list = async (req, res, next) => {
+  try {
+    let shops = await Shop.find()
+    res.json(shops)
+  } catch (err) {
+    console.log('🦊', err)
+    return res.status(400).json({
+      error: 'Could not retrieve a shop'
+    })
+  }
+}
+
 export default {
   create,
   shopByID,
   photo,
   defaultPhoto,
+  list,
 }

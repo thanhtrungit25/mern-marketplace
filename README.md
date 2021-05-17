@@ -32,7 +32,10 @@ A skeleton application with basic user CRUD and auth features - developed using 
       - [x] The create shop API
       - [x] Test create shop API
       - [x] Load image API for specific shop
-    - [ ] Listing shops
+    - [x] Listing all shops
+      - [x] Listing all shops API
+      - [x] fetch method on frontend to request to API
+      - [x] React component to display the list of shops
     - [ ] Displaying a shop
     - [ ] Editing a shop
     - [ ] Deleting a shop
