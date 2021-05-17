@@ -28,7 +28,7 @@ A skeleton application with basic user CRUD and auth features - developed using 
 - [ ] Shop management
   - [ ] Adding shops to the marketplace
     - [x] Defining a shop model
-    - [ ] Creating a new shop
+    - [x] Creating a new shop
       - [x] The create shop API
       - [x] Test create shop API
       - [x] Load image API for specific shop
