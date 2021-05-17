@@ -128,6 +128,18 @@ const update = (req, res) => {
   })
 }
 
+const remove = async (req, res) => {
+  try {
+    let shop = req.shop
+    let deletedShop = await shop.remove()
+    res.json(deletedShop)
+  } catch (error) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(error)
+    })
+  }
+}
+
 export default {
   create,
   shopByID,
@@ -138,4 +150,5 @@ export default {
   read,
   isOwner,
   update,
+  remove,
 }

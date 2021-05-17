@@ -6,15 +6,15 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar'
 import Avatar from '@material-ui/core/Avatar'
 import Icon from '@material-ui/core/Icon'
 import { Divider, Paper } from '@material-ui/core'
-import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import { Link } from 'react-router-dom'
 import EditIcon from '@material-ui/icons/Edit'
-import DeleteIcon from '@material-ui/icons/Delete'
 import auth from './../auth/auth-helper'
 import { listByOwner } from './api-shop'
+import IconButton from '@material-ui/core/IconButton'
+import DeleteShop from './DeleteShop'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -80,11 +80,6 @@ export default function MyShops() {
     }
   }, [])
 
-  /**
-   *
-   * @param {*} shop
-   * TODO add remove shop to DeleteShop component like props
-   */
   const removeShop = (shop) => {
     const updatedShops = [...shops]
     const index = updatedShops.indexOf(shop)
@@ -138,9 +133,7 @@ export default function MyShops() {
                       <EditIcon />
                     </IconButton>
                   </Link>
-                  <IconButton edge='end' aria-label='delete'>
-                    <DeleteIcon />
-                  </IconButton>
+                  <DeleteShop shop={shop} onRemove={removeShop} />
                 </ListItemSecondaryAction>
               </ListItem>
               <Divider />

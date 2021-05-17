@@ -14,6 +14,9 @@ router.route('/api/shops/:shopId')
 router.route('/api/shops/:shopId')
   .put(authCtrl.requireSignin, shopCtrl.isOwner, shopCtrl.update)
 
+router.route('/api/shops/:shopId')
+  .delete(authCtrl.requireSignin, shopCtrl.isOwner, shopCtrl.remove)
+
 router.route('/api/shops/by/:userId')
   .post(authCtrl.requireSignin, authCtrl.hasAuthorization,
     userCtrl.isSeller, shopCtrl.create)
