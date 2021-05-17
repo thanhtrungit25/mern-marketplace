@@ -7,7 +7,7 @@ const create = async (params, credentials, shop) => {
       },
       body: shop
     })
-    return await response.json()
+    return response.json()
   } catch (error) {
     console.log(error)
   }
@@ -56,9 +56,25 @@ const read = async (params, signal) => {
   }
 }
 
+const update = async (params, credentials, shopUpdate) => {
+  try {
+    let response = await fetch('/api/shops/'+params.shopId, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      body: shopUpdate
+    })
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   create,
   list,
   listByOwner,
   read,
+  update,
 }

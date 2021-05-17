@@ -3,6 +3,7 @@ import formidable from 'formidable'
 import Shop from '../models/shop.model'
 import errorHandler from '../helpers/dbErrorHandler'
 import defaultImage from '../../client/assets/images/default.png'
+import { extend } from 'lodash'
 
 const create = (req, res, next) => {
   let form = new formidable.IncomingForm()
@@ -92,6 +93,41 @@ const read = (req, res) => {
   return res.json(req.shop)
 }
 
+const isOwner = (req, res, next) => {
+  const isOwner = req.auth && req.shop
+                           && req.auth._id == req.shop.owner._id
+  if (!isOwner) {
+    return res.status(403).json({
+      error: 'User is not authorized'
+    })
+  }
+  next()
+}
+
+const update = (req, res) => {
+  let form = new formidable.IncomingForm()
+  form.keepExtensions = true
+  form.parse(req, async (err, fields, files) => {
+    let shop = req.shop
+    shop = extend(shop, fields)
+    shop.updated = Date.now()
+
+    if (files.image) {
+      shop.image.data = fs.readFileSync(files.image.path)
+      shop.image.contentType = files.image.type
+    }
+
+    try {
+      let result = await shop.save()
+      res.json(result)
+    } catch (error) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err)
+      })
+    }
+  })
+}
+
 export default {
   create,
   shopByID,
@@ -100,4 +136,6 @@ export default {
   list,
   listByOwner,
   read,
+  isOwner,
+  update,
 }

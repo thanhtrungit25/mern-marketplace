@@ -38,7 +38,7 @@ A skeleton application with basic user CRUD and auth features - developed using 
       - [x] React component to display the list of shops
     - [x] Listing shops by owner
     - [x] Displaying a shop
-    - [ ] Editing a shop
+    - [x] Editing a shop
     - [ ] Deleting a shop
 - [ ] Product management
 - [ ] Product search by name and category

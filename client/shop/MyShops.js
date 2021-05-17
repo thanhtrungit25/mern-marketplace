@@ -133,7 +133,7 @@ export default function MyShops() {
                   </Typography>
                 </div>
                 <ListItemSecondaryAction>
-                  <Link to={`/seller/shops/edit/${shop._id}`}>
+                  <Link to={`/seller/shop/edit/${shop._id}`}>
                     <IconButton edge='end' aria-label='edit' color='primary'>
                       <EditIcon />
                     </IconButton>

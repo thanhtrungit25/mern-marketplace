@@ -4,7 +4,9 @@ import {BrowserRouter} from 'react-router-dom'
 import { ThemeProvider } from '@material-ui/styles'
 import theme from './theme'
 import { hot } from 'react-hot-loader'
+import loadEmojis from './../server/helpers/emojis'
 
+loadEmojis()
 const App = () => {
   React.useEffect(() => {
     const jssStyles = document.querySelector('#jss-server-side')
