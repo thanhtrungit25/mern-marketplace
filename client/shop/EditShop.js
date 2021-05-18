@@ -10,6 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
+import { Link } from 'react-router-dom'
 import { AddPhotoAlternateOutlined } from '@material-ui/icons';
 import auth from './../auth/auth-helper'
 
@@ -38,6 +39,8 @@ const useStyles = makeStyles((theme) => ({
     margin: '0px auto 10px'
   },
   productTitle: {
+    display: 'flex',
+    justifyContent: 'space-between',
     width: '100%',
     fontSize: '1.2em',
     padding: `${theme.spacing(3)}px ${theme.spacing(2.5)}px ${theme.spacing(
@@ -62,6 +65,9 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
     width: 300
+  },
+  addButton: {
+    marginRight: 30
   }
 }))
 
@@ -209,6 +215,13 @@ export default function EditShop({ match }) {
               className={classes.productTitle}
             >
               Products
+              <span className={classes.addButton}>
+                <Link to={`/seller/${match.params.shopId}/products/new`}>
+                  <Button color="primary" variant="contained">
+                    <Icon className={classes.leftIcon}>add_box</Icon> New Product
+                  </Button>
+                </Link>
+              </span>
             </Typography>
             {/* <Products products={products} /> */}
           </Card>
