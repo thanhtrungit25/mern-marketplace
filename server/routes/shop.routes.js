@@ -28,7 +28,7 @@ router.route('/api/shops/by/:userId')
 router.route('/api/shops/logo/:shopId')
   .get(shopCtrl.photo, shopCtrl.defaultPhoto)
 
-  router.route('/api/shops/defaultPhoto')
+router.route('/api/shops/photo/defaultPhoto')
   .get(shopCtrl.defaultPhoto)
 
 router.param('userId', userCtrl.userByID)

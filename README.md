@@ -25,7 +25,7 @@ A skeleton application with basic user CRUD and auth features - developed using 
   - [x] Update the user model
   - [x] Edit Profile view
   - [x] Add a MY SHOPS link to the menu that will only by visible to sellers
-- [ ] Shop management
+- [x] Shop management
   - [x] Adding shops to the marketplace
     - [x] Defining a shop model
     - [x] Creating a new shop
@@ -46,7 +46,9 @@ A skeleton application with basic user CRUD and auth features - developed using 
     - [x] Create product API
     - [x] New Product page
   - [ ] Listing products
-    - [ ] Listing by shop
+    - [x] The products by shop API
+    - [x] Products component for buyers
+    - [ ] MyProducts component for owners
     - [ ] Listing product suggestions
-- [ ] Product search by name and category
+  - [ ] Product search by name and category
 

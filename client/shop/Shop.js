@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import { read } from './api-shop';
+import { listByShop } from '../product/api-product';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
+import Products from '../product/Products'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Shop({match}) {
   const classes = useStyles();
   const [shop, setShop] = useState('')
+  const [products, setProducts] = useState([])
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -51,7 +54,6 @@ export default function Shop({match}) {
     read({
       shopId: match.params.shopId
     }, signal).then(data => {
-      console.log('🦊', data);
       if (data.error) {
         setError(data.error)
       } else {
@@ -64,9 +66,29 @@ export default function Shop({match}) {
     }
   }, [match.params.shopId])
 
+  useEffect(() => {
+    const abortController = new AbortController()
+    const signal = abortController.signal
+
+    listByShop({
+      shopId: match.params.shopId
+    }, signal).then((data)=>{
+      if (data.error) {
+        setError(data.error)
+      } else {
+        setProducts(data)
+      }
+    })
+
+    return function cleanup(){
+      abortController.abort()
+    }
+
+  }, [match.params.shopId])
+
   const logoUrl = shop._id
     ? `/api/shops/logo/${shop._id}`
-    : '/api/shops/defaultPhoto'
+    : '/api/shops/photo/defaultPhoto'
 
   return (
     <div className={classes.root}>
@@ -89,7 +111,7 @@ export default function Shop({match}) {
             <Typography type="title" component="h2" className={classes.productTitle}>
               Products
             </Typography>
-            {/* <Products products={products} /> */}
+            <Products products={products} searched={false} />
           </Card>
         </Grid>
       </Grid>

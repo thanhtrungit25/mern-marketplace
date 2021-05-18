@@ -13,6 +13,19 @@ const create = async (params, credentials, product) => {
   }
 }
 
+const listByShop = async (params, signal) => {
+  try {
+    let response = await fetch('/api/products/by/'+params.shopId, {
+      method: 'GET',
+      signal: signal
+    })
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   create,
+  listByShop,
 }

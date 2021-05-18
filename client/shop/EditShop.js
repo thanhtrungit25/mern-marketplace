@@ -133,7 +133,7 @@ export default function EditShop({ match }) {
 
   const logoUrl = values.id
     ? `/api/shops/logo/${values.id}`
-    : '/api/shops/defaultPhoto'
+    : '/api/shops/photo/defaultPhoto'
 
   return (
     <div className={classes.root}>
