@@ -10,9 +10,10 @@ import CardActions from '@material-ui/core/CardActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Icon from '@material-ui/core/Icon';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { AddPhotoAlternateOutlined } from '@material-ui/icons';
 import auth from './../auth/auth-helper'
+import MyProducts from '../product/MyProducts'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -208,23 +209,7 @@ export default function EditShop({ match }) {
           </Card>
         </Grid>
         <Grid item xs={8} sm={8}>
-          <Card>
-            <Typography
-              type='title'
-              component='h2'
-              className={classes.productTitle}
-            >
-              Products
-              <span className={classes.addButton}>
-                <Link to={`/seller/${match.params.shopId}/products/new`}>
-                  <Button color="primary" variant="contained">
-                    <Icon className={classes.leftIcon}>add_box</Icon> New Product
-                  </Button>
-                </Link>
-              </span>
-            </Typography>
-            {/* <Products products={products} /> */}
-          </Card>
+          <MyProducts shopId={match.params.shopId} />
         </Grid>
       </Grid>
     </div>

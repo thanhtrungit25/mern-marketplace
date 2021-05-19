@@ -33,6 +33,18 @@ const create = (req, res, next) => {
   })
 }
 
+const remove = async (req, res) => {
+  try {
+    let product = req.product
+    let deletedProduct = await product.remove()
+    res.json(deletedProduct)
+  } catch (err) {
+    return res.status(400).json({
+      error: 'Could not retrieve product'
+    })
+  }
+}
+
 const listByShop = async (req, res) => {
   try {
     let products = await Product.find({shop: req.shop._id})
@@ -83,4 +95,5 @@ export default {
   productByID,
   image,
   defaultPhoto,
+  remove,
 }

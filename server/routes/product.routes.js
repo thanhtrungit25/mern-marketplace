@@ -17,6 +17,9 @@ router.route('/api/products/image/:productId')
 router.route('/api/products/defaultPhoto')
   .get(productCtrl.defaultPhoto)
 
+router.route('/api/product/:shopId/:productId')
+  .delete(authCtrl.requireSignin, shopCtrl.isOwner, productCtrl.remove)
+
 router.param('shopId', shopCtrl.shopByID)
 router.param('productId', productCtrl.productByID)
 
