@@ -14,6 +14,7 @@ import MyShops from './shop/MyShops'
 import Shop from './shop/Shop'
 import EditShop from './shop/EditShop'
 import NewProduct from './product/NewProduct'
+import Product from './product/Product'
 
 const MainRouter = () => {
     return (<div>
@@ -25,6 +26,7 @@ const MainRouter = () => {
         <Route path="/signin" component={Signin}/>
         <PrivateRoute path="/user/edit/:userId" component={EditProfile}/>
         <Route path="/user/:userId" component={Profile}/>
+        <Route path="/product/:productId" component={Product}/>
 
         <Route path="/shops/all" component={Shops}/>
         <Route path="/shops/:shopId" component={Shop}/>

@@ -51,9 +51,10 @@ A skeleton application with basic user CRUD and auth features - developed using 
     - [ ] MyProducts component for owners
       - [x] Deleting a product
       - [ ] Editing a product
-    - [ ] Listing product suggestions
-      - [ ] Latest products API
-      - [ ] Related products API
-      - [ ] Suggestions component
+    - [x] Displaying a product
+    - [x] Listing product suggestions
+      - [x] Latest products API
+      - [x] Related products API
+      - [x] Suggestions component
   - [ ] Product search by name and category
 

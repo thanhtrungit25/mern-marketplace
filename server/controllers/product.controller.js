@@ -58,6 +58,42 @@ const listByShop = async (req, res) => {
   }
 }
 
+const listLatest = async (req, res) => {
+  try {
+    let products = await Product.find({}).sort('-created')
+      .limit(5)
+      .populate('shop', '_id name')
+      .exec()
+    return res.json(products)
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const listRelated = async (req, res) => {
+  try {
+    let products = await Product.find({
+      "_id": { "$ne": req.product },
+      "category": req.product.category
+    })
+      .limit(5)
+      .populate('shop', '_id name')
+      .exec()
+    return res.json(products)
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const read = (req, res) => {
+  req.product.image = undefined
+  return res.json(req.product)
+}
+
 const productByID = async (req, res, next, id) => {
   try {
     let product = await Product.findById(id)
@@ -91,7 +127,10 @@ const defaultPhoto = (req, res) => {
 
 export default {
   create,
+  read,
   listByShop,
+  listLatest,
+  listRelated,
   productByID,
   image,
   defaultPhoto,

@@ -108,14 +108,16 @@ const MyProducts = memo(props => {
                   title={product.name}
                 />
                 <div className={classes.details}>
+                  <Link to={`/product/${product._id}`}>
                   <Typography
-                    type='headline'
-                    component='h2'
-                    color='primary'
-                    className={classes.productTitle}
-                  >
-                    {product.name}
-                  </Typography>
+                      type='headline'
+                      component='h2'
+                      color='primary'
+                      className={classes.productTitle}
+                    >
+                      {product.name}
+                    </Typography>
+                  </Link>
                   <Typography
                     type='headline'
                     component='h4'

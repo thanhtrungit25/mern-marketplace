@@ -41,8 +41,47 @@ const listByShop = async (params, signal) => {
   }
 }
 
+const listLatest = async (signal) => {
+  try {
+    let response = await fetch('/api/products/latest', {
+      method: 'GET',
+      signal: signal
+    })
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const listRelated = async (params, signal) => {
+  try {
+    let response = await fetch('/api/products/related/'+params.productId, {
+      method: 'GET',
+      signal: signal
+    })
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const read = async (params, signal) => {
+  try {
+    let response = await fetch('/api/products/'+params.productId, {
+      method: 'GET',
+      signal: signal
+    })
+    return response.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   create,
+  read,
   listByShop,
+  listLatest,
+  listRelated,
   remove,
 }
