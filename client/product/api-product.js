@@ -60,7 +60,7 @@ const listCategories = async (signal) => {
 const list = async (params) => {
   const query = queryString.stringify(params)
   try {
-    let response = await fetch(`/api/products?/${query}`, {
+    let response = await fetch(`/api/products?${query}`, {
        method: 'GET'
     })
     return response.json()

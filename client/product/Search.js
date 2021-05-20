@@ -58,7 +58,7 @@ export default function Search(props) {
   }
 
   const search = () => {
-    if (values.search) {
+    if (values.search || values.category) {
       list({
         search: values.search || undefined,
         category: values.category
