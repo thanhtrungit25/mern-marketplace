@@ -1,51 +1,76 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import Card from '@material-ui/core/Card'
-import CardContent from '@material-ui/core/CardContent'
-import CardMedia from '@material-ui/core/CardMedia'
-import Typography from '@material-ui/core/Typography'
-import unicornbikeImg from './../assets/images/unicornbike.jpg'
+import Grid from '@material-ui/core/Grid'
+import Search from '../product/Search'
+import { listCategories, listLatest } from '../product/api-product'
+import Suggestions from '../product/Suggestions';
 
 const useStyles = makeStyles(theme => ({
-  card: {
-    maxWidth: 600,
-    margin: 'auto',
-    marginTop: theme.spacing(5),
-    marginBottom: theme.spacing(5)
+  root: {
+    flexGrow: 1,
+    margin: 30,
   },
-  title: {
-    padding:`${theme.spacing(3)}px ${theme.spacing(2.5)}px ${theme.spacing(2)}px`,
-    color: theme.palette.openTitle
-  },
-  media: {
-    minHeight: 400
-  },
-  credit: {
-    padding: 10,
-    textAlign: 'right',
-    backgroundColor: '#ededed',
-    borderBottom: '1px solid #d0d0d0',
-    '& a':{
-      color: '#3f4771'
-    } 
-  }
 }))
 
 export default function Home(){
   const classes = useStyles()
-    return (
-        <Card className={classes.card}>
-          <Typography variant="h6" className={classes.title}>
-            Home Page
-          </Typography>
-          <CardMedia className={classes.media} image={unicornbikeImg} title="Unicorn Bicycle"/>
-          <Typography variant="body2" component="p" className={classes.credit} color="textSecondary">Photo by <a href="https://unsplash.com/@boudewijn_huysmans" target="_blank" rel="noopener noreferrer">Boudewijn Huysmans</a> on Unsplash</Typography>
-          <CardContent>
-            <Typography variant="body1" component="p">
-              Welcome to the MERN Skeleton home page.
-            </Typography>
-          </CardContent>
-        </Card>
-    )
+  const [categories, setCategories] = useState([])
+  const [suggestions, setSuggestions] = useState([])
+
+  // Fetch categories used in Search, Categories component
+  useEffect(() => {
+    const abortController = new AbortController()
+    const signal = abortController.signal
+
+    const fetchListCategories = async () => {
+      const data = await listCategories(signal)
+
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        setCategories(data)
+      }
+    }
+    fetchListCategories()
+
+    return function cleanup() {
+      abortController.abort()
+    }
+  }, [])
+
+  // Fetch latest products used in Suggestions component
+  useEffect(() => {
+    const abortController = new AbortController()
+    const signal = abortController.signal
+
+    const fetchLatestProducts = async () => {
+      const data = await listLatest(signal)
+
+      if (data.error) {
+        console.log(data.error)
+      } else {
+        setSuggestions(data)
+      }
+    }
+    fetchLatestProducts()
+
+    return function cleanup() {
+      abortController.abort()
+    }
+  }, [])
+
+  return (
+    <div className={classes.root}>
+      <Grid container spacing={2}>
+        <Grid item xs={8} sm={8}>
+          <Search categories={categories} />
+          {/* <Categories /> */}
+        </Grid>
+        <Grid item xs={4} sm={4}>
+          <Suggestions title="Latest Products" products={suggestions} />
+        </Grid>
+      </Grid>
+    </div>
+  )
 }
 

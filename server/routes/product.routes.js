@@ -5,17 +5,23 @@ import productCtrl from '../controllers/product.controller'
 
 const router = express.Router()
 
+router.route('/api/products/latest')
+  .get(productCtrl.listLatest)
+
+router.route('/api/products/categories')
+  .get(productCtrl.listCategories)
+
 router.route('/api/products/defaultPhoto')
-  .get(productCtrl.defaultPhoto)
+.get(productCtrl.defaultPhoto)
 
 router.route('/api/products/image/:productId')
-  .get(productCtrl.image, productCtrl.defaultPhoto)
+.get(productCtrl.image, productCtrl.defaultPhoto)
 
 router.route('/api/products/:productId')
   .get(productCtrl.read)
 
-router.route('/api/products/latest')
-  .get(productCtrl.listLatest)
+router.route('/api/products')
+  .get(productCtrl.list)
 
 router.route('/api/products/related/:productId')
   .get(productCtrl.listRelated)

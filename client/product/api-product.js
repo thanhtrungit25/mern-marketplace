@@ -1,3 +1,4 @@
+import queryString from 'querystring'
 const create = async (params, credentials, product) => {
   try {
     let response = await fetch('/api/products/by/'+params.shopId, {
@@ -40,6 +41,30 @@ const update = async ({ shopId, productId }, credentials, product) => {
     })
     return response.json()
   } catch(err) {
+    console.log(err)
+  }
+}
+
+const listCategories = async (signal) => {
+  try {
+    let response = await fetch('/api/products/categories', {
+       method: 'GET',
+       signal: signal,
+    })
+    return response.json()
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+const list = async (params) => {
+  const query = queryString.stringify(params)
+  try {
+    let response = await fetch(`/api/products?/${query}`, {
+       method: 'GET'
+    })
+    return response.json()
+  } catch (err) {
     console.log(err)
   }
 }
@@ -95,6 +120,8 @@ const read = async (params, signal) => {
 export {
   create,
   read,
+  list,
+  listCategories,
   listByShop,
   listLatest,
   listRelated,

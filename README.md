@@ -57,4 +57,8 @@ A skeleton application with basic user CRUD and auth features - developed using 
       - [x] Related products API
       - [x] Suggestions component
   - [ ] Product search by name and category
+    - [x] The categories API
+    - [x] The search products API
+    - [x] The Search component
+    - [ ] The Categories component
 

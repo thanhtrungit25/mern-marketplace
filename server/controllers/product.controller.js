@@ -119,6 +119,40 @@ const listRelated = async (req, res) => {
   }
 }
 
+const listCategories = async (req, res) => {
+  try {
+    let categories = await Product.distinct('category', {})
+    console.beer(categories)
+    res.json(categories)
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
+const list = async (req, res) => {
+  let query = {}
+  if (req.query.search) {
+    query.name = {'$regex': req.query.search, '$options': 'i'}
+  }
+  if (req.query.category && req.query.category !== 'All') {
+    query.category = req.query.category
+  }
+  try {
+    let products = await Product
+      .find(query)
+      .populate('shop', '_id name')
+      .select('-image')
+      .exec()
+    return res.json(products)
+  } catch (err) {
+    return res.status(400).json({
+      error: errorHandler.getErrorMessage(err)
+    })
+  }
+}
+
 const read = (req, res) => {
   req.product.image = undefined
   return res.json(req.product)
@@ -158,9 +192,11 @@ const defaultPhoto = (req, res) => {
 export default {
   create,
   read,
+  list,
   listByShop,
   listLatest,
   listRelated,
+  listCategories,
   productByID,
   image,
   defaultPhoto,

@@ -126,3 +126,8 @@ export default function Suggestions(props) {
     </div>
   )
 }
+
+Suggestions.propTypes = {
+  title: PropTypes.string.isRequired,
+  products: PropTypes.array.isRequired,
+}
