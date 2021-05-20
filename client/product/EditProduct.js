@@ -189,7 +189,7 @@ export default function EditProduct({ match }) {
           label='Category'
           className={classes.textField}
           value={values.category}
-          onChange={handleChange('image')}
+          onChange={handleChange('category')}
         />
         <TextField
           id='quantity'
