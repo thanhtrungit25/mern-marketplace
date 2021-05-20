@@ -3,6 +3,7 @@ import formidable from 'formidable'
 import errorHandler from '../helpers/dbErrorHandler'
 import Product from '../models/product.model'
 import defaultImage from './../../client/assets/images/default.png'
+import { extend } from 'lodash'
 
 const create = (req, res, next) => {
   let form = new formidable.IncomingForm()
@@ -30,6 +31,35 @@ const create = (req, res, next) => {
     }
 
     res.json(fields)
+  })
+}
+
+const update = async (req, res) => {
+  let form = new formidable.IncomingForm()
+  form.keepExtensions = true
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        message: "Image could not be uploaded"
+      })
+    }
+    let product = req.product
+    product = extend(product, fields)
+    product.updated = Date.now()
+
+    if (files.image) {
+      product.image.data = fs.readFileSync(files.image.path)
+      product.image.contentType = files.image.type
+    }
+    try {
+      let result = await product.save()
+      res.json(result)
+    } catch (err) {
+      return res.status(400).json({
+        error: errorHandler.getErrorMessage(err)
+      })
+    }
   })
 }
 
@@ -135,4 +165,5 @@ export default {
   image,
   defaultPhoto,
   remove,
+  update,
 }

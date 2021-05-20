@@ -29,6 +29,21 @@ const remove = async ({ shopId, productId }, credentials) => {
   }
 }
 
+const update = async ({ shopId, productId }, credentials, product) => {
+  try {
+    let response = await fetch(`/api/product/${shopId}/${productId}`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + credentials.t
+      },
+      body: product,
+    })
+    return response.json()
+  } catch(err) {
+    console.log(err)
+  }
+}
+
 const listByShop = async (params, signal) => {
   try {
     let response = await fetch('/api/products/by/'+params.shopId, {
@@ -84,4 +99,5 @@ export {
   listLatest,
   listRelated,
   remove,
+  update,
 }
