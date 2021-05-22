@@ -10,6 +10,7 @@ import Icon from '@material-ui/core/Icon'
 import IconButton from '@material-ui/core/IconButton'
 import ViewIcon from '@material-ui/icons/Visibility'
 import AddCartIcon from '@material-ui/icons/AddShoppingCart'
+import AddToCart from '../cart/AddToCart'
 
 const useStyles = makeStyles(theme => ({
   root: theme.mixins.gutters({
@@ -114,7 +115,7 @@ export default function Suggestions(props) {
                       <ViewIcon className={classes.iconButton} />
                     </IconButton>
                     <IconButton color="secondary" dense="dense">
-                      <AddCartIcon className={classes.iconButton} />
+                      <AddToCart item={item} />
                     </IconButton>
                   </span>
                 </div>

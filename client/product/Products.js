@@ -9,6 +9,7 @@ import AddCartIcon from '@material-ui/icons/AddShoppingCart';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import { Link } from 'react-router-dom'
 import { Typography } from '@material-ui/core';
+import AddToCart from '../cart/AddToCart';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,9 +70,7 @@ export default function Products(props) {
                 className={classes.titleBar}
                 actionIcon={
                   <span>
-                    <IconButton>
-                      <AddCartIcon color="secondary" dense="dense" />
-                    </IconButton>
+                    <AddToCart item={product} />
                   </span>
                 }
               />

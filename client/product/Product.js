@@ -10,6 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid'
 import Suggestions from './Suggestions';
+import AddToCart from '../cart/AddToCart';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -66,7 +67,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Product({match}) {
   const classes = useStyles()
-  console.bee(classes)
   const [product, setProduct] = useState({shop:{}})
   const [suggestions, setSuggestions] = useState([])
   const [error, setError] = useState('')
@@ -119,8 +119,6 @@ export default function Product({match}) {
     fetchListRelated()
   }, [match.params.productId])
 
-  const addToCart = () => {}
-
   const imageUrl = product._id
     ? `/api/products/image/${product._id}?${new Date().getTime()}`
     : '/api/products/defaultPhoto'
@@ -132,14 +130,7 @@ export default function Product({match}) {
             <CardHeader
               action={
                 <div style={{ marginTop: '20px' }}>
-                  <IconButton
-                    color="secondary"
-                    dense="dense"
-                    className={classes.iconButton}
-                    onClick={addToCart}
-                  >
-                    <AddCartIcon className={classes.addCart} />
-                  </IconButton>
+                  <AddToCart item={product} cartStyle={classes.addCart} />
                 </div>
               }
               title={product.name}
