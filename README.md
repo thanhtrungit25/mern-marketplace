@@ -61,4 +61,15 @@ A skeleton application with basic user CRUD and auth features - developed using 
     - [x] The search products API
     - [x] The Search component
     - [x] The Categories component
-
+  - [ ] Implementing shopping cart
+    - [x] Adding to the cart
+    - [x] Cart icon in the menu
+    - [x] The Cart view
+    - [x] The CartItems component
+      - [x] Modifying quantity
+      - [x] Removing items
+      - [x] Showing the total price
+      - [x] Option to checkout
+    - [ ] Using stripe for payments
+      - [x] Add StripeConnect component
+      - [x] Send code receive from client callback to server API and send request to `oath token` to receive token and update to user model

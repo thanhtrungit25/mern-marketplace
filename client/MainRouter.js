@@ -17,6 +17,7 @@ import NewProduct from './product/NewProduct'
 import EditProduct from './product/EditProduct'
 import Product from './product/Product'
 import Cart from './cart/Cart'
+import StripeConnect from './user/StripeConnect'
 
 const MainRouter = () => {
     return (<div>
@@ -39,6 +40,7 @@ const MainRouter = () => {
         <PrivateRoute path="/seller/:shopId/products/new" component={NewProduct}/>
         <PrivateRoute path="/seller/:shopId/:productId/edit" component={EditProduct}/>
         <PrivateRoute path="/seller/shops" component={MyShops}/>
+        <PrivateRoute path="/seller/stripe/connect" component={StripeConnect}/>
       </Switch>
     </div>)
 }

@@ -1,6 +1,8 @@
 import User from '../models/user.model'
 import extend from 'lodash/extend'
 import errorHandler from './../helpers/dbErrorHandler'
+import request from 'request'
+import config from '../../config/config'
 
 const create = async (req, res) => {
   const user = new User(req.body)
@@ -92,6 +94,26 @@ const isSeller = (req, res, next) => {
   next()
 }
 
+const stripe_auth = (req, res, next) => {
+  request({
+    url: 'https://connnect.stripe.com/oauth/token',
+    method: 'POST',
+    json: true,
+    body: {
+      client_secret: config.stripe_test_secret_key,
+      code: req.body.stripe
+    }
+  }, (error, response, body) => {
+    if (body.error) {
+      return res.status(400).json({
+        error: body.error_description
+      })
+    }
+    req.body.stripe_seller = body
+    next()
+  })
+}
+
 export default {
   create,
   userByID,
@@ -100,4 +122,5 @@ export default {
   remove,
   update,
   isSeller,
+  stripe_auth,
 }
