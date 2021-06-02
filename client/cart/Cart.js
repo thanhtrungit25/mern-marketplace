@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import Grid from '@material-ui/core/Grid'
 import Checkout from './Checkout'
 import CartItems from './CartItems'
+import { StripeProvider } from 'react-stripe-elements';
+import config from '../../config/config'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,7 +30,9 @@ export default function Cart() {
         </Grid>
         {checkout && (
           <Grid item xs={6} sm={6}>
-            <Checkout />
+            <StripeProvider apiKey={config.stripe_test_api_key}>
+              <Checkout />
+            </StripeProvider>
           </Grid>
         )}
       </Grid>

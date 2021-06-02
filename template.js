@@ -19,6 +19,7 @@ export default ({markup, css}) => {
         </head>
         <body style="margin:0">
           <div id="root">${markup}</div>
+          <script src="https://js.stripe.com/v3/"></script>
           <style id="jss-server-side">${css}</style>
           <script type="text/javascript" src="/dist/bundle.js"></script>
         </body>
